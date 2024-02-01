@@ -1,14 +1,3 @@
-<svelte:head>
-<script src="./js/jquery-3.5.1.min.js"></script>
-	<script src="./js/bootstrap.bundle.min.js"></script>
-	<script src="./js/owl.carousel.min.js"></script>
-	<script src="./js/jquery.magnific-popup.min.js"></script>
-	<script src="./js/wNumb.js"></script>
-	<script src="./js/nouislider.min.js"></script>
-	<script src="./js/jquery.mousewheel.min.js"></script>
-	<script src="./js/jquery.mCustomScrollbar.min.js"></script>
-	<script src="./js/main.js"></script>
-</svelte:head>
 
 	
 	<script>
