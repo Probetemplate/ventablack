@@ -1758,7 +1758,7 @@
                                     <div class="accordion-item card border mb-2">
                                         <div class="accordion-header" id="help1">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                                <h5 class="font-size-14 m-0"></i> Help</h5>
+                                                <h5 class="font-size-14 m-0">Help</h5>
                                             </button>
                                         </div>
                                         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="help1" data-bs-parent="#settingprofile">
