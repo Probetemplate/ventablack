@@ -1,3 +1,14 @@
+<svelte:head>
+<script src="./js/jquery-3.5.1.min.js"></script>
+	<script src="./js/bootstrap.bundle.min.js"></script>
+	<script src="./js/owl.carousel.min.js"></script>
+	<script src="./js/jquery.magnific-popup.min.js"></script>
+	<script src="./js/wNumb.js"></script>
+	<script src="./js/nouislider.min.js"></script>
+	<script src="./js/jquery.mousewheel.min.js"></script>
+	<script src="./js/jquery.mCustomScrollbar.min.js"></script>
+	<script src="./js/main.js"></script>
+</svelte:head>
 
 	
 	<script>
@@ -19,9 +30,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
+				    {#each catalogs as catalog (catalog.id)}
 					<div class="details">
 						<div class="details__head">
 							<div class="details__cover">
+							    
+							    
 								<img src="{catalog.image}" alt="">
 							</div>
 
@@ -32,7 +46,7 @@
 									<li><span>Category:</span> <a href="/">{catalog.category}</a></li>
 									<li><span>Created by:</span> <a href="/">{catalog.creator}</a></li>
 									<li><span>Released:</span> {catalog.released}</li>
-									<li><span>Last update:</span> {catalog.update}</li>
+									<li><span>Last update:</span> {catalog.updated}</li>
 									<li><span>Version:</span> {catalog.version}</li>
 								</ul>
 							</div>
@@ -170,6 +184,7 @@
 							</div>
 						</div>
 					</div>
+					{/each}
 				</div>
 			</div>
 		</div>
