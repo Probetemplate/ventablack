@@ -1733,7 +1733,7 @@
                                     <div class="accordion-item card border mb-2">
                                         <div class="accordion-header" id="security1">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#security" aria-expanded="false" aria-controls="security">
-                                                <h5 class="font-size-14 m-0"></i> Security</h5>
+                                                <h5 class="font-size-14 m-0">Security</h5>
                                             </button>
                                         </div>
                                         <div id="security" class="accordion-collapse collapse" aria-labelledby="security1" data-bs-parent="#settingprofile">
