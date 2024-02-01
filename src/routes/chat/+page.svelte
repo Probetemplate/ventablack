@@ -1,5 +1,5 @@
 
-<html lang="en">
+
 
     <svelte:head>
         
@@ -2558,4 +2558,3 @@
         <!-- JAVASCRIPT -->
        
     </body>
-</html>
