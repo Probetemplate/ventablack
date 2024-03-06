@@ -1,5 +1,25 @@
 <script>
-  export let year = new Date().getFullYear();
+  import { fauth } from './firebase'; // Import the Firebase authentication object
+  
+  // Function to handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const email = formData.get('email');
+    const password = formData.get('password');
+
+    try {
+      // Sign in with email and password using Firebase authentication
+      await fauth.signInWithEmailAndPassword(email, password);
+      // Redirect to the desired route after successful login
+      window.location('/dashboard'); // Replace '/dashboard' with your desired route
+    } catch (error) {
+      console.error("Login failed:", error.message);
+      // Handle login error (e.g., display error message to the user)
+    }
+  };
+export let year = new Date().getFullYear();
 </script>
 
 
@@ -37,7 +57,7 @@
             <div class="card">
               <div class="card-body p-4">
                 <div class="p-3">
-                  <form action="./">
+                  <form on:submit={handleSubmit}>
                     <div class="mb-3">
                       <label class="form-label">Username</label>
                       <div class="input-group mb-3 bg-light-subtle rounded-3">
@@ -45,10 +65,10 @@
                           <i class="ri-user-2-line"></i>
                         </span>
                         <input
-                          type="text"
+                          type="email" name="email"
                           class="form-control form-control-lg border-light bg-light-subtle"
-                          placeholder="Enter Username"
-                          aria-label="Enter Username"
+                          placeholder="Enter Email"
+                          aria-label="Enter Email"
                           aria-describedby="basic-addon3"
                         />
                       </div>
@@ -108,3 +128,6 @@
     <!-- JAVASCRIPT -->
   </body>
 </html>
+
+
+
