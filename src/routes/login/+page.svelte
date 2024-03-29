@@ -8,19 +8,40 @@
   let email = '';
   let password = '';
   let errorMessage = '';
+async function login() {
+    // Clear previous error message
+    errorMessage = '';
 
-  async function login() {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    // User is signed in
-    const user = userCredential.user;
-    console.log('Logged in user:', user);
-    goto('/');
-  } catch (error) {
-    errorMessage = error.message;
-    console.error('Login error:', errorMessage);
-  }
+    // Validate email
+    if (!email.trim()) {
+        errorMessage = 'Email is required.';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+        errorMessage = 'Email is invalid.';
+    }
+
+    // Validate password
+    if (!password.trim()) {
+        errorMessage = 'Password is required.';
+    }
+
+    // If there are validation errors, display error message and return
+    if (errorMessage) {
+        console.error('Login error:', errorMessage);
+        return;
+    }
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        // User is signed in
+        const user = userCredential.user;
+        console.log('Logged in user:', user);
+        goto('/');
+    } catch (error) {
+        errorMessage = error.message;
+        console.error('Login error:', errorMessage);
+    }
 }
+  
 
   export let year = new Date().getFullYear();
 </script>
@@ -35,7 +56,7 @@
     
   </svelte:head>
 
-  <body>
+  
     <div class="account-pages my-5 pt-sm-5">
       <div class="container">
         <div class="row justify-content-center">
@@ -121,5 +142,4 @@
     </div>
     <!-- end account-pages -->
 
-    <!-- JAVASCRIPT -->
-  </body>
+    
