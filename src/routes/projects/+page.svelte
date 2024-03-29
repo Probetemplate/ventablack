@@ -14,13 +14,16 @@
   });
 
   onMount(() => {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
     if (!user) {
+      console.log("User is not authenticated");
       goto('/login');
+    } else {
+      console.log("User is authenticated:", user);
     }
   });
+});
 
   // Unsubscribe from the snapshot listener when component is destroyed
   onDestroy(() => {
