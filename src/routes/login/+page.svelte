@@ -8,6 +8,7 @@
   let email = '';
   let password = '';
   let errorMessage = '';
+
 async function login() {
     // Clear previous error message
     errorMessage = '';
@@ -22,6 +23,8 @@ async function login() {
     // Validate password
     if (!password.trim()) {
         errorMessage = 'Password is required.';
+    } else if (password.length < 6) {
+        errorMessage = 'Password must be at least 6 characters long.';
     }
 
     // If there are validation errors, display error message and return
@@ -41,7 +44,6 @@ async function login() {
         console.error('Login error:', errorMessage);
     }
 }
-  
 
   export let year = new Date().getFullYear();
 </script>
