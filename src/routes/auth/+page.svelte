@@ -1,21 +1,24 @@
 <script>
-  import { fauth } from '../firebase';
+  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+  import { app } from '../firebase';
+  
+  const auth = getAuth(app);
   let email = '';
   let password = '';
   let errorMessage = '';
 
   async function login() {
-    try {
-      const userCredential = await fauth.signInWithEmailAndPassword(email, password);
-      // User is signed in
-      const user = userCredential.user;
-      console.log('Logged in user:', user);
-      // Redirect or perform other actions upon successful login
-    } catch (error) {
-      errorMessage = error.message;
-      console.error('Login error:', errorMessage);
-    }
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    // User is signed in
+    const user = userCredential.user;
+    console.log('Logged in user:', user);
+    // Redirect or perform other actions upon successful login
+  } catch (error) {
+    errorMessage = error.message;
+    console.error('Login error:', errorMessage);
   }
+}
 </script>
 
 <style>
