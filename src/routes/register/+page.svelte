@@ -10,16 +10,39 @@
   let errorMessage = '';
 
 async function register() {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    // User is registered
-    const user = userCredential.user;
-    console.log('Registered user:', user);
-    goto('/login');
-  } catch (error) {
-    errorMessage = error.message;
-    console.error('Registration error:', errorMessage);
-  }
+    // Clear previous error message
+    errorMessage = '';
+
+    // Validate email
+    if (!email.trim()) {
+        errorMessage = 'Email is required.';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+        errorMessage = 'Email is invalid.';
+    }
+
+    // Validate password
+    if (!password.trim()) {
+        errorMessage = 'Password is required.';
+    } else if (password.length < 6) {
+        errorMessage = 'Password must be at least 6 characters long.';
+    }
+
+    // If there are validation errors, display error message and return
+    if (errorMessage) {
+        console.error('Registration error:', errorMessage);
+        return;
+    }
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        // User is registered
+        const user = userCredential.user;
+        console.log('Registered user:', user);
+        goto('/login');
+    } catch (error) {
+        errorMessage = error.message;
+        console.error('Registration error:', errorMessage);
+    }
 }
   
 
@@ -31,24 +54,12 @@ async function register() {
   
 
   <svelte:head>
-    <meta charset="utf-8" />
-    <title>Register | Webui</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta content="Responsive Bootstrap 5 Chat App" name="description" />
+     <title>Register | Webui</title>
+    <meta content="Register your account to Webui" name="description" />
     <meta content="Netsmg" name="author" />
-    
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link href="./css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="./css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="./css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-  </svelte:head>
+    </svelte:head>
 
-  <body>
+  
     <div class="account-pages my-5 pt-sm-5">
       <div class="container">
         <div class="row justify-content-center">
@@ -135,5 +146,4 @@ async function register() {
     </div>
     <!-- end account-pages -->
 
-    <!-- JAVASCRIPT -->
-  </body>
+    
