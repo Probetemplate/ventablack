@@ -1,5 +1,6 @@
 <script>
   import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+  import {goto} from '$app/navigation';
   import { app } from '../firebase';
   
   const auth = getAuth(app);
@@ -13,7 +14,7 @@
     // User is signed in
     const user = userCredential.user;
     console.log('Logged in user:', user);
-    // Redirect or perform other actions upon successful login
+    goto('/');
   } catch (error) {
     errorMessage = error.message;
     console.error('Login error:', errorMessage);
