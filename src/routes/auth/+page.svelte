@@ -1,43 +1,28 @@
-<script>
-  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-  import {goto} from '$app/navigation';
+script>
+  import { onMount } from 'svelte';
+  
   import { app } from '../firebase';
   
   const auth = getAuth(app);
-  let email = '';
-  let password = '';
-  let errorMessage = '';
+  
+  let user = $auth.user;
 
-  async function login() {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    // User is signed in
-    const user = userCredential.user;
-    console.log('Logged in user:', user);
-    goto('/');
-  } catch (error) {
-    errorMessage = error.message;
-    console.error('Login error:', errorMessage);
-  }
-}
+  onMount(() => {
+    // Ensure user data is loaded
+    $auth.subscribe(value => {
+      user = value.user;
+    });
+  });
 </script>
 
-<style>
-  /* Add your CSS styles here */
-</style>
+<h1>Profile</h1>
 
-<h1>Login</h1>
-
-{#if errorMessage}
-  <p style="color: red;">{errorMessage}</p>
+{#if user}
+  <p>Name: {user.displayName}</p>
+  <p>Email: {user.email}</p>
+  {#if user.photoURL}
+    <img src="{user.photoURL}" alt="Profile Photo">
+  {/if}
+{:else}
+  <p>Loading...</p>
 {/if}
-
-<form on:submit|preventDefault={login}>
-  <label for="email">Email:</label><br>
-  <input type="email" id="email" bind:value={email}><br>
-
-  <label for="password">Password:</label><br>
-  <input type="password" id="password" bind:value={password}><br>
-
-  <button type="submit">Login</button>
-</form>
