@@ -23,9 +23,9 @@
   }
 </script>
 
-<h1>Profile</h1>
 
 {#if user}
+<div id="algn">
   <div id="card">
     <div id="upper-bg">
       {#if user.photoURL}
@@ -60,6 +60,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 {:else}
   <p>Loading...</p>
