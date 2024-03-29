@@ -1,35 +1,40 @@
 <script>
   import { onMount } from "svelte";
-  import { getDatabase, ref, push } from "firebase/database";
+import { getDatabase, ref, push } from "firebase/database";
 
-  let formData = {
+let formData = {
+  name: "",
+  email: "",
+  subject: "", // Added subject field
+  message: "",
+};
+
+const handleSubmit = async () => {
+  // Check if any field is empty
+  if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+    alert("Please fill in all fields.");
+    return; // Stop the submission process
+  }
+
+  const db = getDatabase();
+  const contactsRef = ref(db, "contacts");
+
+  // Push the form data to the "contacts" collection
+  await push(contactsRef, formData);
+
+  // Clear the form after submission
+  formData = {
     name: "",
     email: "",
-    subject: "", // Added subject field
+    subject: "",
     message: "",
   };
 
-  const handleSubmit = async () => {
-    const db = getDatabase();
-    const contactsRef = ref(db, "contacts");
+  // Alert after submission
+  alert("Form submit successful!");
 
-    // Push the form data to the "contacts" collection
-    await push(contactsRef, formData);
-
-    // Clear the form after submission
-    formData = {
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    };
-
-    // Alert after submission
-    alert("Form submit successful!");
-
-    console.log("Form submitted to Firebase Realtime Database!");
-  };
-
+  console.log("Form submitted to Firebase Realtime Database!");
+};
   onMount(() => {
     document.title = "Contact";
   });
