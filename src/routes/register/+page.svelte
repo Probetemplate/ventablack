@@ -1,10 +1,36 @@
+
 <script>
+  import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+  import {goto} from '$app/navigation';
+  import { app } from '../firebase';
+  
+  const auth = getAuth(app);
+  let email = '';
+  let password = '';
+  let errorMessage = '';
+
+async function register() {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(fauth, email, password);
+    // User is registered
+    const user = userCredential.user;
+    console.log('Registered user:', user);
+    goto('/login');
+  } catch (error) {
+    errorMessage = error.message;
+    console.error('Registration error:', errorMessage);
+  }
+}
+  
+
   export let year = new Date().getFullYear();
 </script>
 
 
-<html lang="en">
-  <head>
+
+  
+
+  <svelte:head>
     <meta charset="utf-8" />
     <title>Register | Webui</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +46,7 @@
     <link href="./css/icons.min.css" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="./css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-  </head>
+  </svelte:head>
 
   <body>
     <div class="account-pages my-5 pt-sm-5">
@@ -32,12 +58,15 @@
               
               <h4>Sign up</h4>
               <p class="text-muted mb-4">Get your Webui account now.</p>
+              {#if errorMessage}
+  <p style="color: red;">{errorMessage}</p>
+{/if}
             </div>
 
             <div class="card">
               <div class="card-body p-4">
                 <div class="p-3">
-                  <form action="./">
+                  <form on:submit|preventDefault={register}>
                     <div class="mb-3">
                       <label class="form-label">Email</label>
                       <div class="input-group bg-light-subtle rounded-3 mb-3">
@@ -45,7 +74,7 @@
                           <i class="ri-mail-line"></i>
                         </span>
                         <input
-                          type="email"
+                          type="email" id="email" bind:value={email}
                           class="form-control form-control-lg bg-light-subtle border-light"
                           placeholder="Enter Email"
                           aria-label="Enter Email"
@@ -54,21 +83,7 @@
                       </div>
                     </div>
 
-                    <div class="mb-3">
-                      <label class="form-label">Username</label>
-                      <div class="input-group bg-light-subtle mb-3 rounded-3">
-                        <span class="input-group-text border-light text-muted" id="basic-addon6">
-                          <i class="ri-user-2-line"></i>
-                        </span>
-                        <input
-                          type="text"
-                          class="form-control form-control-lg bg-light-subtle border-light"
-                          placeholder="Enter Username"
-                          aria-label="Enter Username"
-                          aria-describedby="basic-addon6"
-                        />
-                      </div>
-                    </div>
+                    
 
                     <div class="mb-4">
                       <label class="form-label">Password</label>
@@ -77,7 +92,7 @@
                           <i class="ri-lock-2-line"></i>
                         </span>
                         <input
-                          type="password"
+                          type="password" id="password" bind:value={password}
                           class="form-control form-control-lg bg-light-subtle border-light"
                           placeholder="Enter Password"
                           aria-label="Enter Password"
@@ -88,14 +103,14 @@
 
                     <div class="d-grid">
                       <button class="btn btn-primary waves-effect waves-light" type="submit">
-                        Sign up
+                        Register
                       </button>
                     </div>
 
                     <div class="mt-4 text-center">
                       <p class="text-muted mb-0">
                         By registering you agree to the Webui
-                        <a href="#" class="text-primary">
+                        <a href="/" class="text-primary">
                           Terms of Use
                         </a>
                       </p>
@@ -122,4 +137,3 @@
 
     <!-- JAVASCRIPT -->
   </body>
-</html>
