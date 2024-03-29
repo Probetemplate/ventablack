@@ -1,5 +1,5 @@
 <script>
-  import { signInWithEmailAndPassword } from 'firebase/auth';
+  import { fauth } from '../firebase';
   let email = '';
   let password = '';
   let errorMessage = '';
