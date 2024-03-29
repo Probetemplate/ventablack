@@ -1,10 +1,33 @@
+
 <script>
+  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+  import {goto} from '$app/navigation';
+  import { app } from '../firebase';
+  
+  const auth = getAuth(app);
+  let email = '';
+  let password = '';
+  let errorMessage = '';
+
+  async function login() {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    // User is signed in
+    const user = userCredential.user;
+    console.log('Logged in user:', user);
+    goto('/');
+  } catch (error) {
+    errorMessage = error.message;
+    console.error('Login error:', errorMessage);
+  }
+}
+
   export let year = new Date().getFullYear();
 </script>
 
 
-<html lang="en">
-  <head>
+
+  <svelte:head>
     <meta charset="utf-8" />
     <title>Log in | Webui</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,7 +44,7 @@
     <link href="./css/icons.min.css" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="./css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-  </head>
+  </svelte:head>
 
   <body>
     <div class="account-pages my-5 pt-sm-5">
@@ -31,13 +54,17 @@
             <div class="text-center mb-4">
               
               <h4>Sign in</h4>
-              <p class="text-muted mb-4">Sign in to continue to Webui.</p>
+              <p class="text-muted mb-4">Sign in to continue to Webui.
+              </p>
+              {#if errorMessage}
+  <p style="color: red;">{errorMessage}</p>
+{/if}
             </div>
 
             <div class="card">
               <div class="card-body p-4">
                 <div class="p-3">
-                  <form action="./">
+                  <form on:submit|preventDefault={login}>
                     <div class="mb-3">
                       <label class="form-label">Username</label>
                       <div class="input-group mb-3 bg-light-subtle rounded-3">
@@ -45,7 +72,7 @@
                           <i class="ri-user-2-line"></i>
                         </span>
                         <input
-                          type="text"
+                          type="email" id="email" bind:value={email}
                           class="form-control form-control-lg border-light bg-light-subtle"
                           placeholder="Enter Username"
                           aria-label="Enter Username"
@@ -66,7 +93,7 @@
                           <i class="ri-lock-2-line"></i>
                         </span>
                         <input
-                          type="password"
+                          type="password" id="password" bind:value={password}>
                           class="form-control form-control-lg border-light bg-light-subtle"
                           placeholder="Enter Password"
                           aria-label="Enter Password"
@@ -92,7 +119,7 @@
 
             <div class="mt-5 text-center">
               <p>
-                Don't have an account ?{" "}
+                Don&apos;t have an account ?{" "}
                 <a href="./register" class="fw-medium text-primary">
                   Signup now
                 </a>{" "}
@@ -107,4 +134,3 @@
 
     <!-- JAVASCRIPT -->
   </body>
-</html>
