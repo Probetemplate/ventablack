@@ -93,7 +93,7 @@
                           <i class="ri-lock-2-line"></i>
                         </span>
                         <input
-                          type="password" id="password" bind:value={password}>
+                          type="password" id="password" bind:value={password}
                           class="form-control form-control-lg border-light bg-light-subtle"
                           placeholder="Enter Password"
                           aria-label="Enter Password"
