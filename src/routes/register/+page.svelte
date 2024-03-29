@@ -11,7 +11,7 @@
 
 async function register() {
   try {
-    const userCredential = await createUserWithEmailAndPassword(fauth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     // User is registered
     const user = userCredential.user;
     console.log('Registered user:', user);
