@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 // import { getAnalytics } from "firebase/analytics";
-import { getDatabase} from "firebase/database"
-import { getFirestore } from "firebase/firestore"
+import { getDatabase, ref, push } from "firebase/database"
+import { collection, onSnapshot, getFirestore } from "firebase/firestore"
 import { getStorage } from 'firebase/storage';
 import {getAuth} from 'firebase/auth'
  
