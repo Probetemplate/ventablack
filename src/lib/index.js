@@ -1,4 +1,4 @@
-// Reexport your entry components here
+
 import User from './components/User.svelte';
 import Collection from './components/Collection.svelte';
 import Doc from './components/Doc.svelte';
@@ -14,7 +14,7 @@ import { docStore, collectionStore  } from './stores/firestore';
 import { nodeStore, nodeListStore } from './stores/rtdb';
 import { getFirebaseContext } from './stores/sdk';
 import { downloadUrlStore, storageListStore, uploadTaskStore } from './stores/storage';
-
+import { authGuard } from './authGuard';
 export {
     Doc,
     User,
@@ -35,4 +35,5 @@ export {
     nodeListStore,
     userStore,
     getFirebaseContext,
+    authGuard,
 }
