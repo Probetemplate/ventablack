@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, push } from "firebase/database"
 import { collection, onSnapshot, getFirestore } from "firebase/firestore"
 import { getStorage } from 'firebase/storage';
-import {getAuth} from 'firebase/auth'
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
  
 const firebaseConfig = {
   apiKey: "AIzaSyB6_twOhogk9QSRWVQQ1QAekLed-cqNVgQ",
