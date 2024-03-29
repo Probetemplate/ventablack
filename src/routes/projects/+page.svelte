@@ -1,16 +1,32 @@
 <script>
-  import { collection, onSnapshot } from 'firebase/firestore';
-  import { getFirestore } from 'firebase/firestore';
+  import { onMount, onDestroy } from 'svelte';
+  import { collection, getFirestore, onSnapshot } from 'firebase/firestore';
+  import { getAuth, onAuthStateChanged } from 'firebase/auth';
+  import { goto } from '$app/navigation';
+  import { app } from '../firebase';
 
   let projects = [];
-  const db = getFirestore();
+  const db = getFirestore(app);
   const query = collection(db, 'projects');
 
-  onSnapshot(query, (snapshot) => {
+  const unsubscribe = onSnapshot(query, (snapshot) => {
     projects = snapshot.docs.map((doc) => doc.data());
   });
-</script>
 
+  onMount(() => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      goto('/login');
+    }
+  });
+
+  // Unsubscribe from the snapshot listener when component is destroyed
+  onDestroy(() => {
+    unsubscribe();
+  });
+</script>
 <section class="section">
     <div class="row">
         <div class="col-12 col-lg-6 col-xl-4">
